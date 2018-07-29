@@ -7,6 +7,20 @@ class BookSearch extends React.Component {
   
   }
  
+  getSearchResults(searchTerm) {
+    // prevent blank search term being used
+    // ideally could use regex to substitute spaces e.g. spaces in between terms
+    let trimmedTerm = searchTerm.trim();
+    if (trimmedTerm) {
+      console.log(`${trimmedTerm}`);
+      BooksAPI.search(trimmedTerm).then((books) => {
+        // this.setState({ contacts })
+        console.log(books);
+  
+      })
+    }
+
+  }
   render() {
     return (
       <div className="app">
@@ -23,7 +37,7 @@ class BookSearch extends React.Component {
                 However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                 you don't find a specific author or title. Every search is limited by search terms.
               */}
-              <input type="text" placeholder="Search by title or author"/>
+              <input type="text" placeholder="Search by title or author" onChange = {(event) => this.getSearchResults(event.target.value)}/>
 
             </div>
           </div>
