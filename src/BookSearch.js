@@ -22,6 +22,9 @@ class BookSearch extends React.Component {
         console.log(books);
   
       })
+    } else {
+      // if search term deleted by user, set state to blank array so search results disappear
+      this.updateBookState([]);
     }
 
   }
