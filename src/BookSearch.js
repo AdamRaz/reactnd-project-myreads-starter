@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom'
 
 class BookSearch extends React.Component {
   state = {
-  
+    bookData: []
   }
  
+  updateBookState(booksArray) {
+    this.setState({ bookData: booksArray });
+  }
+
   getSearchResults(searchTerm) {
     // prevent blank search term being used
     // ideally could use regex to substitute spaces e.g. spaces in between terms
@@ -14,7 +18,7 @@ class BookSearch extends React.Component {
     if (trimmedTerm) {
       console.log(`${trimmedTerm}`);
       BooksAPI.search(trimmedTerm).then((books) => {
-        // this.setState({ contacts })
+        this.updateBookState(books);
         console.log(books);
   
       })
@@ -22,7 +26,11 @@ class BookSearch extends React.Component {
 
   }
   render() {
+    let booksArray = this.state.bookData;
+    console.log(booksArray);
+    // short circuit eval below to only execute map function when books array data actually exists
     return (
+
       <div className="app">
         <div className="search-books">
           <div className="search-books-bar">
@@ -42,7 +50,28 @@ class BookSearch extends React.Component {
             </div>
           </div>
           <div className="search-books-results">
-            <ol className="books-grid"></ol>
+            <ol className="books-grid">
+              {booksArray && (booksArray.map((book) => (
+                <li key={book.id}>
+                <div className="book">
+                  <div className="book-top">
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                    <div className="book-shelf-changer">
+                      <select>
+                        <option value="move" disabled>Move to...</option>
+                        <option value="currentlyReading">Currently Reading</option>
+                        <option value="wantToRead">Want to Read</option>
+                        <option value="read">Read</option>
+                        <option value="none">None</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="book-title">{book.title}</div>
+                  <div className="book-authors">{book.authors}</div>
+                </div>
+              </li>
+            )))}
+            </ol>
           </div>
         </div>
       </div>
