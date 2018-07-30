@@ -7,6 +7,20 @@ class BookSearch extends React.Component {
     bookData: []
   }
  
+  changeOption(book, event) {
+    console.log(book.id);
+    let newShelf = event.target.value;
+    console.log(newShelf);
+
+    BooksAPI.update(book, newShelf).then((response) => {
+        console.log(response);
+      }
+    )
+    // .then(
+    //   this.booksUpdate()
+    // )
+  }
+
   updateBookState(booksArray) {
     this.setState({ bookData: booksArray });
   }
@@ -64,7 +78,7 @@ class BookSearch extends React.Component {
                     )}
 
                     <div className="book-shelf-changer">
-                      <select>
+                      <select value={book.shelf || "none"} onChange={(event) => this.changeOption(book, event)} >
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
