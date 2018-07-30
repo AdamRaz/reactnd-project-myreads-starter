@@ -10,6 +10,19 @@ class BookShelf extends React.Component {
     currentlyReading: []
     }
  
+  changeOption(book, event) {
+    console.log(book.id);
+    let newShelf = event.target.value;
+    console.log(newShelf);
+
+    BooksAPI.update(book, newShelf).then((response) => {
+        console.log(response);
+      }
+    ).then(
+      this.booksUpdate()
+    )
+  }
+
   sortBooksToShelves(books) {
     let readArray = [];
     let wantToReadArray = [];
@@ -38,13 +51,18 @@ class BookShelf extends React.Component {
 
   }
 
-  componentDidMount() {
+  booksUpdate() {
     BooksAPI.getAll().then((books) => {
       // this.setState({ shelfBooks: books })
       console.log("bookshelf data");
       // console.log(books);
       this.sortBooksToShelves(books);
     })
+  }
+
+  componentDidMount() {
+    this.booksUpdate();
+
   }
 
 
@@ -75,7 +93,9 @@ class BookShelf extends React.Component {
                     )}
 
                     <div className="book-shelf-changer">
-                      <select>
+                      <select value={book.shelf} onChange={(event) => this.changeOption(book, event)} >
+                      {/* setting select value, see https://stackoverflow.com/questions/5589629/value-attribute-on-select-tag-not-selecting-default-option and see Edoh - https://www.youtube.com/watch?v=PF8fCAKR0-I */}
+
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -108,7 +128,7 @@ class BookShelf extends React.Component {
                     )}
 
                     <div className="book-shelf-changer">
-                      <select>
+                      <select  value={book.shelf} onChange={(event) => this.changeOption(book, event)}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -141,7 +161,7 @@ class BookShelf extends React.Component {
                     )}
 
                     <div className="book-shelf-changer">
-                      <select>
+                      <select  value={book.shelf} onChange={(event) => this.changeOption(book, event)}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
