@@ -94,7 +94,7 @@ class BookShelf extends React.Component {
 
                     <div className="book-shelf-changer">
                       <select value={book.shelf} onChange={(event) => this.changeOption(book, event)} >
-                      {/* setting select value, see https://stackoverflow.com/questions/5589629/value-attribute-on-select-tag-not-selecting-default-option and see Edoh - https://www.youtube.com/watch?v=PF8fCAKR0-I */}
+                      {/* setting select value, see ref: https://stackoverflow.com/questions/5589629/value-attribute-on-select-tag-not-selecting-default-option and see Edoh - https://www.youtube.com/watch?v=PF8fCAKR0-I */}
 
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>

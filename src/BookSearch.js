@@ -6,7 +6,13 @@ class BookSearch extends React.Component {
   state = {
     bookData: []
   }
- 
+
+  /*
+  TODO
+I'm thinking of (while on the search page) grabbing the current bookshelf with BooksAPI.getAll() then comparing/filtering (with something like .includes(),  ref - https://stackoverflow.com/questions/34901593/how-to-filter-an-array-from-all-elements-of-another-array) the search results with the getAll results into a new array.
+Then assigning the correct shelf to the books that match/are filtered out (use the new array made from the getAll method to find shelf & generate html)
+*/
+
   changeOption(book, event) {
     console.log(book.id);
     let newShelf = event.target.value;

@@ -53,18 +53,19 @@ OR 1 object and the shelf detail is another property:
 
   option selection ->
   */
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      // this.setState({ contacts })
-      console.log(books);
 
-    })
-    BooksAPI.search('kafka').then((books) => {
-      // this.setState({ contacts })
-      console.log(books);
+  // componentDidMount() {
+  //   BooksAPI.getAll().then((books) => {
+  //     // this.setState({ contacts })
+  //     console.log(books);
 
-    })
-  }
+  //   })
+  //   BooksAPI.search('kafka').then((books) => {
+  //     // this.setState({ contacts })
+  //     console.log(books);
+
+  //   })
+  // }
 
   render() {
     return (
