@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 class BookSearch extends React.Component {
   state = {
     bookData: []
+    // add shelf data to state whenever search is executed, just use state property for select value, rect should manage updates!?
   }
 
   /*
@@ -12,6 +13,37 @@ class BookSearch extends React.Component {
 I'm thinking of (while on the search page) grabbing the current bookshelf with BooksAPI.getAll() then comparing/filtering (with something like .includes(),  ref - https://stackoverflow.com/questions/34901593/how-to-filter-an-array-from-all-elements-of-another-array) the search results with the getAll results into a new array.
 Then assigning the correct shelf to the books that match/are filtered out (use the new array made from the getAll method to find shelf & generate html)
 */
+
+  findBookShelf(booksArray) {
+    // console.log("finding correct shelf")
+    // console.log(book.id);
+    // let correctShelf;
+    BooksAPI.getAll().then((books) => {
+      let bookDataCopy = this.state.bookData;
+      // console.log(books);
+      // return "read";
+      // compare 2 arrays, find matching books, add shelf data to this.state.bookData[i].shelf ???
+      for (let i=0; i<books.length; i++) {
+        for (let j=0; j<booksArray.length; j++) {
+          if (books[i].id === booksArray[j].id) {
+            console.log ("book.id match!");
+            // console.log (`book name is ${booksArray[j].title}`);
+            let correctShelf = books[i].shelf;
+            console.log (`book shelf is ${correctShelf}`);
+            // console.log (`book in state is ${this.state.bookData[j].title}`);
+            
+            bookDataCopy[j].shelf = correctShelf;
+            console.log (`book data copy shows ${bookDataCopy[j].title} is on ${bookDataCopy[j].shelf}`);
+
+          }
+        }
+      }
+      this.setState({bookData:bookDataCopy});
+
+    })
+    // return correctShelf;
+
+  }
 
   changeOption(book, event) {
     console.log(book.id);
@@ -29,6 +61,7 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
 
   updateBookState(booksArray) {
     this.setState({ bookData: booksArray });
+    this.findBookShelf(booksArray)
   }
 
   getSearchResults(searchTerm) {
