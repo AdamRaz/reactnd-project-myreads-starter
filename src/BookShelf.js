@@ -11,9 +11,7 @@ class BookShelf extends React.Component {
     }
  
   changeOption(book, event) {
-    console.log(book.id);
     let newShelf = event.target.value;
-    console.log(newShelf);
 
     BooksAPI.update(book, newShelf).then((response) => {
         console.log(response);
@@ -30,13 +28,10 @@ class BookShelf extends React.Component {
 
     for (let i = 0; i < books.length; i++) {
       if (books[i].shelf === "read") {
-        console.log(books[i]);
         readArray.push(books[i]);
       } else if (books[i].shelf === "wantToRead") {
-        // console.log(books[i]);
         wantToReadArray.push(books[i]);
       } else if (books[i].shelf === "currentlyReading") {
-        // console.log(books[i]);
         currentlyReadingArray.push(books[i]);
       }
     }
@@ -47,15 +42,10 @@ class BookShelf extends React.Component {
         currentlyReading: currentlyReadingArray
       }
     )
-    // console.log(state);
-
   }
 
   booksUpdate() {
     BooksAPI.getAll().then((books) => {
-      // this.setState({ shelfBooks: books })
-      console.log("bookshelf data");
-      // console.log(books);
       this.sortBooksToShelves(books);
     })
   }
@@ -182,7 +172,6 @@ class BookShelf extends React.Component {
         </div>
       </div>
       <div className="open-search">
-        {/* <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a> */}
         <Link to='/search' >Search, add a book</Link>
       </div>
     </div>
