@@ -12,15 +12,17 @@ class BookShelf extends React.Component {
  
   changeOption(book, event) {
     let newShelf = event.target.value;
+    console.log(newShelf);
 
     BooksAPI.update(book, newShelf).then((response) => {
         console.log(response);
       }
     ).then(
-      this.booksUpdate()
+      this.stateUpdate(book, newShelf)
     )
   }
 
+  // take the full list of books, sort into arrays for each shelf
   sortBooksToShelves(books) {
     let readArray = [];
     let wantToReadArray = [];
@@ -28,10 +30,13 @@ class BookShelf extends React.Component {
 
     for (let i = 0; i < books.length; i++) {
       if (books[i].shelf === "read") {
+        console.log(`getAll response, on read shelf: ${books[i].title}`)
         readArray.push(books[i]);
       } else if (books[i].shelf === "wantToRead") {
+        console.log(`getAll response, on wantToRead shelf: ${books[i].title}`)
         wantToReadArray.push(books[i]);
       } else if (books[i].shelf === "currentlyReading") {
+        console.log(`getAll response, on currentlyReading shelf: ${books[i].title}`)
         currentlyReadingArray.push(books[i]);
       }
     }
@@ -44,15 +49,27 @@ class BookShelf extends React.Component {
     )
   }
 
+  stateUpdate(book, newShelf) {
+    let stateBooksCopy = this.state.shelfBooks;
+    for (let i=0; i<stateBooksCopy.length; i++) {
+      if (stateBooksCopy[i].id === book.id) {
+        stateBooksCopy[i].shelf = newShelf;
+      }
+    }
+      this.setState({shelfBooks: stateBooksCopy})
+      this.sortBooksToShelves(stateBooksCopy);
+  }
+
+  // once a book has been moved to another shelf, get the full list of books and sort them so we can re-render the html
   booksUpdate() {
     BooksAPI.getAll().then((books) => {
+      this.setState({shelfBooks: books});
       this.sortBooksToShelves(books);
     })
   }
 
   componentDidMount() {
     this.booksUpdate();
-
   }
 
 
