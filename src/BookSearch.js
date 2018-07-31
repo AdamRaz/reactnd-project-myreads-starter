@@ -26,14 +26,14 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
       for (let i=0; i<books.length; i++) {
         for (let j=0; j<booksArray.length; j++) {
           if (books[i].id === booksArray[j].id) {
-            console.log ("book.id match!");
+            // console.log ("book.id match!");
             // console.log (`book name is ${booksArray[j].title}`);
             let correctShelf = books[i].shelf;
-            console.log (`book shelf is ${correctShelf}`);
+            // console.log (`book shelf is ${correctShelf}`);
             // console.log (`book in state is ${this.state.bookData[j].title}`);
             
             bookDataCopy[j].shelf = correctShelf;
-            console.log (`book data copy shows ${bookDataCopy[j].title} is on ${bookDataCopy[j].shelf}`);
+            // console.log (`book data copy shows ${bookDataCopy[j].title} is on ${bookDataCopy[j].shelf}`);
 
           }
         }
@@ -46,6 +46,8 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
   }
 
   changeOption(book, event) {
+    let bookDataCopy = this.state.bookData;
+
     console.log(book.id);
     let newShelf = event.target.value;
     console.log(newShelf);
@@ -54,6 +56,15 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
         console.log(response);
       }
     )
+
+    for (let i=0; i<bookDataCopy.length; i++) {
+      if (bookDataCopy[i].id === book.id) {
+        console.log(`option change on search page to ${newShelf} and book match found`);
+        bookDataCopy[i].shelf = newShelf;
+      }
+    }
+    this.setState({bookData:bookDataCopy});
+
     // .then(
     //   this.booksUpdate()
     // )
@@ -69,10 +80,10 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
     // ideally could use regex to substitute spaces e.g. spaces in between terms
     let trimmedTerm = searchTerm.trim();
     if (trimmedTerm) {
-      console.log(`${trimmedTerm}`);
+      // console.log(`${trimmedTerm}`);
       BooksAPI.search(trimmedTerm).then((books) => {
         this.updateBookState(books);
-        console.log(books);
+        // console.log(books);
   
       })
     } else {
@@ -83,7 +94,7 @@ Then assigning the correct shelf to the books that match/are filtered out (use t
   }
   render() {
     let booksArray = this.state.bookData;
-    console.log(booksArray);
+    // console.log(booksArray);
     // short circuit eval below to only execute map function when books array data actually exists
     return (
 
