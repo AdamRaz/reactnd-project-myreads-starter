@@ -4,7 +4,7 @@ This is a react based app to keep track of a reading list: search for books, ass
 
 The selection of books is limited... this is just an example!
 
-This is based of a udacity project assignment: https://github.com/udacity/reactnd-project-myreads-starter
+This is based on a udacity project assignment: https://github.com/udacity/reactnd-project-myreads-starter
 
 ## Getting Started
 using a terminal: 
