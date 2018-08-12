@@ -24,7 +24,7 @@ use the 'plus' icon at the lower-right of the main screen to add a book to the s
 
 * **Adam Razzak** 
 
-## Acknowledgments
+## Acknowledgements
 
 * readme template: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 * Udacity course and people! see https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001
